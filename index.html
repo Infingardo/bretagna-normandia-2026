@@ -723,14 +723,14 @@
     ];
 
     const hotels = [
-      ["1-3 ago", "Rouen", "Ibis Rouen Centre Rive Droite Pasteur", "3 camere, 6 adulti", "Confermato", "Base per arrivo, Rouen serale, Etretat"],
-      ["3-5 ago", "Bayeux", "B&B HOTEL Bayeux", "3 camere matrimoniali", "Pagamento programmato 606 euro; tassa 10,80 euro in struttura", "Check-in prima delle 21:00"],
-      ["5-6 ago", "Pontorson / Mont-Saint-Michel", "Auberge de la Baie", "3 camere standard doppie", "Totale indicato 371,13 euro", "Check-in 15:00-21:00; check-out 07:00-11:00"],
-      ["6-7 ago", "Saint-Malo", "Ibis Budget Saint-Malo Centre", "Camere twin/doppie", "Pagamento online anticipato 485,07 euro; tassa 5,94 euro in hotel", "Check-in 14:00-24:00; check-out 07:00-12:00"],
-      ["7-9 ago", "Lannion", "Hotel Arcadia", "3 camere, 6 adulti", "570 euro + tassa locale 19,80 euro", "Avvisare se arrivo dopo le 20:30"],
-      ["9-11 ago", "Quimper", "Escale Oceania Quimper", "3 comfort room", "Totale 579 euro; tasse check-in 17,88 euro", "Check-in da 15:00; check-out prima delle 12:00"],
-      ["11-12 ago", "Vannes", "Escale Oceania Vannes", "3 comfort room", "Totale 327 euro; tasse check-in 9,00 euro", "Base breve per Morbihan/Carnac"],
-      ["12-13 ago", "Chartres", "Campanile PRIME - Chartres Centre Gare Cathedrale", "3 matrimoniali", "Confermato; Agoda 678955267", "Arrivo realistico 17:30-18:30. Avvisare l'hotel. Verificare parcheggio. Tel. +33 237217800"]
+      ["1-3 ago", "Rouen", "Ibis Rouen Centre Rive Droite Pasteur", "3 camere, 6 adulti", "Confermato", "Base per arrivo, Rouen serale, Etretat", "+33 2 76 27 45 54"],
+      ["3-5 ago", "Bayeux", "B&B HOTEL Bayeux", "3 camere matrimoniali", "Pagamento programmato 606 euro; tassa 10,80 euro in struttura", "Check-in prima delle 21:00", "+33 2 31 10 13 30"],
+      ["5-6 ago", "Pontorson / Mont-Saint-Michel", "Auberge de la Baie", "3 camere standard doppie", "Totale indicato 371,13 euro", "Check-in 15:00-21:00; check-out 07:00-11:00", "+33 2 33 68 26 70"],
+      ["6-7 ago", "Saint-Malo", "Ibis Budget Saint-Malo Centre", "Camere twin/doppie", "Pagamento online anticipato 485,07 euro; tassa 5,94 euro in hotel", "Check-in 14:00-24:00; check-out 07:00-12:00. In alternativa centralino Accor +33 892 68 08 32 (a pagamento)", "+33 2 99 82 08 07"],
+      ["7-9 ago", "Lannion", "Hotel Arcadia", "3 camere, 6 adulti", "570 euro + tassa locale 19,80 euro", "Avvisare se arrivo dopo le 20:30", "+33 2 96 48 45 65"],
+      ["9-11 ago", "Quimper", "Escale Oceania Quimper", "3 comfort room", "Totale 579 euro; tasse check-in 17,88 euro", "Check-in da 15:00; check-out prima delle 12:00", "+33 2 98 53 37 37"],
+      ["11-12 ago", "Vannes", "Escale Oceania Vannes", "3 comfort room", "Totale 327 euro; tasse check-in 9,00 euro", "Base breve per Morbihan/Carnac", "+33 2 97 47 59 60"],
+      ["12-13 ago", "Chartres", "Campanile PRIME - Chartres Centre Gare Cathedrale", "3 matrimoniali", "Confermato; Agoda 678955267", "Arrivo realistico 17:30-18:30. Avvisare l'hotel. Verificare parcheggio", "+33 2 37 21 78 00"]
     ];
 
     const checklist = [
@@ -852,12 +852,13 @@
     }
 
     function renderHotels() {
-      hotelList.innerHTML = hotels.map(([dates, city, hotel, rooms, status, note]) => `
+      hotelList.innerHTML = hotels.map(([dates, city, hotel, rooms, status, note, phone]) => `
         <article class="hotel-card">
           <h3>${escapeHtml(city)}</h3>
           <div class="detail-grid">
             <div class="key">Date</div><div>${escapeHtml(dates)}</div>
             <div class="key">Hotel</div><div>${mapsLink(hotel, `${hotel} ${city}`)}</div>
+            <div class="key">Telefono</div><div><a class="map-link" href="tel:${phone.replace(/[^+\d]/g, "")}">${escapeHtml(phone)}</a></div>
             <div class="key">Camere</div><div>${escapeHtml(rooms)}</div>
             <div class="key">Stato</div><div>${escapeHtml(status)}</div>
             <div class="key">Nota</div><div>${escapeHtml(note)}</div>
