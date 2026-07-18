@@ -1,11 +1,24 @@
-const CACHE = "bretagna-2026-v1";
+const CACHE = "bretagna-2026-v2";
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./icon-180.png",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./img/day-1.jpg",
+  "./img/day-2.jpg",
+  "./img/day-3.jpg",
+  "./img/day-4.jpg",
+  "./img/day-5.jpg",
+  "./img/day-6.jpg",
+  "./img/day-7.jpg",
+  "./img/day-8.jpg",
+  "./img/day-9.jpg",
+  "./img/day-10.jpg",
+  "./img/day-11.jpg",
+  "./img/day-12.jpg",
+  "./img/day-13.jpg"
 ];
 
 self.addEventListener("install", (event) => {

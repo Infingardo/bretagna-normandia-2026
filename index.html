@@ -227,6 +227,26 @@
       gap: 8px;
     }
 
+    .day-photo {
+      width: 100%;
+      aspect-ratio: 16 / 6;
+      object-fit: cover;
+      border-radius: calc(var(--radius) - 2px);
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+
+    .credits {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .credits a {
+      color: inherit;
+    }
+
     .meta {
       display: flex;
       flex-wrap: wrap;
@@ -474,7 +494,8 @@
       .toolbar,
       .tabs,
       .filters,
-      .btn {
+      .btn,
+      .day-photo {
         display: none !important;
       }
 
@@ -588,6 +609,7 @@
         <h2>Documenti da tenere offline</h2>
         <div class="notice">Il dossier aiuta a orientarsi. I voucher originali restano necessari come prova.</div>
         <div class="checklist" id="documentList" style="margin-top: 12px;"></div>
+        <div class="credits" id="photoCredits"></div>
       </div>
     </section>
   </div>
@@ -596,6 +618,7 @@
     const tripDays = [
       {
         id: "day-1",
+        photo: "img/day-1.jpg",
         dow: "Sab",
         date: "1 ago",
         base: "Rouen",
@@ -609,6 +632,7 @@
       },
       {
         id: "day-2",
+        photo: "img/day-2.jpg",
         dow: "Dom",
         date: "2 ago",
         base: "Rouen",
@@ -622,6 +646,7 @@
       },
       {
         id: "day-3",
+        photo: "img/day-3.jpg",
         dow: "Lun",
         date: "3 ago",
         base: "Bayeux",
@@ -635,6 +660,7 @@
       },
       {
         id: "day-4",
+        photo: "img/day-4.jpg",
         dow: "Mar",
         date: "4 ago",
         base: "Bayeux",
@@ -648,6 +674,7 @@
       },
       {
         id: "day-5",
+        photo: "img/day-5.jpg",
         dow: "Mer",
         date: "5 ago",
         base: "Pontorson / Mont-Saint-Michel",
@@ -661,6 +688,7 @@
       },
       {
         id: "day-6",
+        photo: "img/day-6.jpg",
         dow: "Gio",
         date: "6 ago",
         base: "Saint-Malo",
@@ -674,6 +702,7 @@
       },
       {
         id: "day-7",
+        photo: "img/day-7.jpg",
         dow: "Ven",
         date: "7 ago",
         base: "Lannion",
@@ -687,6 +716,7 @@
       },
       {
         id: "day-8",
+        photo: "img/day-8.jpg",
         dow: "Sab",
         date: "8 ago",
         base: "Lannion",
@@ -700,6 +730,7 @@
       },
       {
         id: "day-9",
+        photo: "img/day-9.jpg",
         dow: "Dom",
         date: "9 ago",
         base: "Quimper",
@@ -713,6 +744,7 @@
       },
       {
         id: "day-10",
+        photo: "img/day-10.jpg",
         dow: "Lun",
         date: "10 ago",
         base: "Quimper",
@@ -726,6 +758,7 @@
       },
       {
         id: "day-11",
+        photo: "img/day-11.jpg",
         dow: "Mar",
         date: "11 ago",
         base: "Vannes",
@@ -739,6 +772,7 @@
       },
       {
         id: "day-12",
+        photo: "img/day-12.jpg",
         dow: "Mer",
         date: "12 ago",
         base: "Chartres",
@@ -752,6 +786,7 @@
       },
       {
         id: "day-13",
+        photo: "img/day-13.jpg",
         dow: "Gio",
         date: "13 ago",
         base: "Rientro",
@@ -818,6 +853,22 @@
       "Numeri telefonici degli hotel"
     ];
 
+    const photoCredits = [
+      ["1 ago", "Rouen Cathedral as seen from Gros Horloge 140215 4.jpg", "DXR", "CC BY-SA 3.0"],
+      ["2 ago", "Etretat vue aérienne de la falaise aval et de l'aiguille.jpg", "Abajolet", "CC BY-SA 4.0"],
+      ["3 ago", "Old port in Honfleur. France.jpg", "Ввласенко", "CC BY-SA 3.0"],
+      ["4 ago", "Geological Pointe du Hoc Calvados, France.jpg", "Jebulon", "CC0"],
+      ["5 ago", "Mont Saint-Michel 20060330.JPG", "EricGOlson", "CC BY-SA 2.5"],
+      ["6 ago", "Fort national Saint-Malo.jpg", "Plyd", "CC BY-SA 3.0"],
+      ["7 ago", "Phare de Ploumanac'h 04.jpg", "Stephan Sprinz", "CC BY 4.0"],
+      ["8 ago", "La côte de granit rose à Trégastel - 003.JPG", "Thesupermat", "CC BY-SA 2.5"],
+      ["9 ago", "Quimper - Cathédrale Saint-Corentin - Portail - PA00090326 - 0001.jpg", "Thesupermat", "CC BY-SA 3.0"],
+      ["10 ago", "Pointe du Raz bei Sonnenuntergang.jpg", "Stephan Sprinz", "CC BY 4.0"],
+      ["11 ago", "Concarneau - la ville close à marée basse.jpg", "Jean-Jacques Abalain", "CC BY 2.0"],
+      ["12 ago", "Alignements de Carnac, Morbihan (France).jpg", "Le Passant", "CC BY-SA 4.0"],
+      ["13 ago", "Claude Monet house and garden in Giverny (8742619222).jpg", "Michal Osmenda", "CC BY 2.0"]
+    ];
+
     const storageKey = "bretagna-normandia-2026-checks";
     let checks = JSON.parse(localStorage.getItem(storageKey) || "{}");
 
@@ -881,6 +932,7 @@
             <span>${day.base === "Rientro" ? escapeHtml(day.base) : mapsLink(day.base, day.base)}</span>
           </div>
           <div class="day-body">
+            ${day.photo ? `<img class="day-photo" src="${day.photo}" alt="${escapeHtml(day.title)}" loading="lazy">` : ""}
             <h3>${escapeHtml(day.title)}</h3>
             <div class="meta">
               <span class="pill">${escapeHtml(day.intensity)}</span>
@@ -966,6 +1018,14 @@
       `).join("");
     }
 
+    function renderCredits() {
+      document.getElementById("photoCredits").innerHTML =
+        "<strong>Crediti fotografici</strong> (Wikimedia Commons): " +
+        photoCredits.map(([date, file, artist, license]) =>
+          `<a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}" target="_blank" rel="noopener">${escapeHtml(date)}</a>: ${escapeHtml(artist)}, ${escapeHtml(license)}`
+        ).join(" · ");
+    }
+
     function selectedDayText() {
       const fallback = tripDays.find((day) => day.id === currentTripDayId()) || tripDays[0];
       const selected = daySelect.value === "all" ? fallback : tripDays.find((day) => day.id === daySelect.value);
@@ -1038,6 +1098,7 @@
     renderChecklist();
     renderRisks();
     renderDocuments();
+    renderCredits();
   </script>
 </body>
 </html>
