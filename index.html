@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#176b5b">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Bretagna 2026">
   <title>Bretagna + Normandia 2026</title>
   <style>
     :root {
@@ -972,6 +978,10 @@
         alert(text);
       }
     });
+
+    if ("serviceWorker" in navigator && location.protocol === "https:") {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    }
 
     renderDayOptions();
     const todayId = currentTripDayId();
