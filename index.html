@@ -576,7 +576,7 @@
           </label>
           <label>
             Cerca
-            <input id="searchDays" type="search" placeholder="citta, visita, hotel">
+            <input id="searchDays" type="search" placeholder="città, visita, hotel">
           </label>
           <button class="btn" id="resetDays" type="button">Mostra tutto</button>
         </div>
@@ -660,7 +660,7 @@
 <text x="844.3" y="343.9" text-anchor="middle" font-size="15" font-weight="650" fill="var(--text)">Chartres</text>
 <text x="844.3" y="357.9" text-anchor="middle" font-size="12" fill="var(--muted)">12-13 ago</text>
 </svg>
-        <p class="credits">Percorso indicativo in linea d'aria: i cerchi numerati sono le basi in ordine cronologico, i punti rossi le tappe lungo il tragitto, il tratteggio le gite in giornata. Tocca un numero per aprire la localita in Google Maps. Confini: <a href="https://github.com/gregoiredavid/france-geojson" target="_blank" rel="noopener">france-geojson</a> (dati Etalab/IGN).</p>
+        <p class="credits">Percorso indicativo in linea d'aria: i cerchi numerati sono le basi in ordine cronologico, i punti rossi le tappe lungo il tragitto, il tratteggio le gite in giornata. Tocca un numero per aprire la località in Google Maps. Confini: <a href="https://github.com/gregoiredavid/france-geojson" target="_blank" rel="noopener">france-geojson</a> (dati Etalab/IGN).</p>
       </div>
     </section>
 
@@ -771,7 +771,7 @@
         intensity: "Medio",
         km: "130-170 km",
         hotel: "Auberge de la Baie",
-        program: ["Mattina Bayeux", "Trasferimento verso area Mont-Saint-Michel", "Check-in Auberge de la Baie", "Entro 17:00 ai parcheggi del Mont (45 min a piedi fino al ritrovo)", "17:45 ritrovo guida a destra dell'ingresso principale", "18:00 Decouverte des sables mouvants, 1h30 nella baia (piedi nudi, ricambio caldo)"],
+        program: ["Mattina Bayeux", "Trasferimento verso area Mont-Saint-Michel", "Check-in Auberge de la Baie", "Entro 17:00 ai parcheggi del Mont (45 min a piedi fino al ritrovo)", "17:45 ritrovo guida a destra dell'ingresso principale", "18:00 Découverte des sables mouvants, 1h30 nella baia (piedi nudi, ricambio caldo)"],
         priority: "Vincolo fisso ore 18:00: biglietti baia non rimborsabili. Ai parcheggi entro le 17:00",
         critical: true
       },
@@ -891,7 +891,7 @@
 
     // costo = camere in euro; tasse = tasse di soggiorno note; null = importo non registrato
     const hotels = [
-      ["1-3 ago", "Rouen", "Ibis Rouen Centre Rive Droite Pasteur", "3 camere, 6 adulti", "Confermato", "Base per arrivo, Rouen serale, Etretat", "+33 2 76 27 45 54", null, null],
+      ["1-3 ago", "Rouen", "Ibis Rouen Centre Rive Droite Pasteur", "3 camere, 6 adulti", "Da saldare in hotel: 541,35 euro (3 x 180,45, tasse incluse); conferma QJFPDMNC", "Base per arrivo, Rouen serale, Etretat", "+33 2 76 27 45 54", 541.35, 0],
       ["3-5 ago", "Bayeux", "B&B HOTEL Bayeux", "3 camere matrimoniali", "Pagamento programmato 606 euro; tassa 10,80 euro in struttura", "Check-in prima delle 21:00", "+33 2 31 10 13 30", 606, 10.80],
       ["5-6 ago", "Pontorson / Mont-Saint-Michel", "Auberge de la Baie", "3 camere standard doppie", "Totale indicato 371,13 euro", "Check-in 15:00-21:00; check-out 07:00-11:00", "+33 2 33 68 26 70", 371.13, 0],
       ["6-7 ago", "Saint-Malo", "Ibis Budget Saint-Malo Centre", "Camere twin/doppie", "Pagamento online anticipato 485,07 euro; tassa 5,94 euro in hotel", "Check-in 14:00-24:00; check-out 07:00-12:00. In alternativa centralino Accor +33 892 68 08 32 (a pagamento)", "+33 2 99 82 08 07", 485.07, 5.94],
@@ -910,9 +910,9 @@
       ["auto", "Voucher BSP Auto / Goldcar disponibile offline"],
       ["auto", "Documenti e patente del conducente"],
       ["hotel", "Prenotazioni hotel salvate in ordine cronologico"],
-      ["attivita", "Biglietti Mont-Saint-Michel / baia salvati separatamente"],
-      ["attivita", "Biglietti Casa di Monet Giverny (13 ago 14:30) salvati offline sui telefoni"],
-      ["attivita", "Documento di invalidita con se: richiesto all'ingresso Giverny per il biglietto ridotto"],
+      ["attività", "Biglietti Mont-Saint-Michel / baia salvati separatamente"],
+      ["attività", "Biglietti Casa di Monet Giverny (13 ago 14:30) salvati offline sui telefoni"],
+      ["attività", "Documento di invalidità con se: richiesto all'ingresso Giverny per il biglietto ridotto"],
       ["assicurazione", "Polizza assicurativa salvata offline"],
       ["logistica", "Parcheggi nelle basi centrali: Rouen, Saint-Malo, Vannes"],
       ["visite", "Orari aggiornati abbazia Mont-Saint-Michel"],
@@ -924,7 +924,7 @@
     const risks = [
       ["Troppe tappe in un giorno", "Stanchezza, ritardi, visite superficiali", "2-3 obiettivi reali al giorno"],
       ["Parcheggi centrali", "Perdita di tempo, stress", "Cercare parking prima dell'arrivo"],
-      ["Ritardo al ritiro auto", "Possibile problema con disponibilita", "Avvisare agenzia se ritardo"],
+      ["Ritardo al ritiro auto", "Possibile problema con disponibilità", "Avvisare agenzia se ritardo"],
       ["Carta non accettata al noleggio", "Rischio blocco ritiro auto", "Usare carta di credito fisica valida a nome conducente"],
       ["Giornata del 13 troppo compressa", "Salto della visita Giverny (biglietti non rimborsabili) o rischio sul volo", "Partire da Chartres entro le 12:30 e da Giverny entro le 17:00"],
       ["Bagagli su due Peugeot 208", "Spazio limitato", "Bagagli compatti, niente valigie sovradimensionate"]
@@ -939,7 +939,7 @@
       "Biglietti Mont-Saint-Michel / baia",
       "Biglietti Casa di Monet Giverny: 6 e-ticket 13 ago 14:30, intestati a Luciana Gennari",
       "Polizza assicurativa",
-      "Documento di identita e patente del conducente",
+      "Documento di identità e patente del conducente",
       "Carta di credito fisica del conducente",
       "Numeri telefonici degli hotel"
     ];
@@ -1036,7 +1036,7 @@
             <ul class="program">
               ${day.program.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
             </ul>
-            <div><span class="key">Priorita:</span> ${escapeHtml(day.priority)}</div>
+            <div><span class="key">Priorità:</span> ${escapeHtml(day.priority)}</div>
           </div>
         </article>
       `).join("") || '<div class="empty">Nessun giorno trovato.</div>';
@@ -1144,9 +1144,9 @@
         `${selected.dow} ${selected.date} - ${selected.title}`,
         `Base: ${selected.base}`,
         `Hotel/logistica: ${selected.hotel}`,
-        `Intensita: ${selected.intensity}; km: ${selected.km}`,
+        `Intensità: ${selected.intensity}; km: ${selected.km}`,
         `Programma: ${selected.program.join("; ")}`,
-        `Priorita: ${selected.priority}`
+        `Priorità: ${selected.priority}`
       ].join("\n");
     }
 
