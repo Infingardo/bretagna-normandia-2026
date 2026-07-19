@@ -277,6 +277,13 @@
       background: color-mix(in srgb, var(--warn) 9%, var(--surface));
     }
 
+    .pill.today {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      font-weight: 650;
+    }
+
     .pill.danger {
       color: var(--danger);
       border-color: color-mix(in srgb, var(--danger) 35%, var(--line));
@@ -535,15 +542,15 @@
     <div class="stats" aria-label="Sintesi viaggio">
       <div class="stat">
         <div class="label">Giorni</div>
-        <div class="value">13</div>
+        <div class="value" id="statDays">13</div>
       </div>
       <div class="stat">
         <div class="label">Notti</div>
-        <div class="value">12</div>
+        <div class="value" id="statNights">12</div>
       </div>
       <div class="stat">
         <div class="label">Basi</div>
-        <div class="value">8</div>
+        <div class="value" id="statBases">8</div>
       </div>
       <div class="stat">
         <div class="label">Punti critici aperti</div>
@@ -660,6 +667,7 @@
     <section class="section" id="bookings">
       <div class="panel">
         <h2>Pernottamenti e logistica</h2>
+        <div class="notice" id="costSummary" style="margin-bottom: 12px;"></div>
         <div class="hotel-grid" id="hotelList"></div>
       </div>
     </section>
@@ -881,15 +889,16 @@
       }
     ];
 
+    // costo = camere in euro; tasse = tasse di soggiorno note; null = importo non registrato
     const hotels = [
-      ["1-3 ago", "Rouen", "Ibis Rouen Centre Rive Droite Pasteur", "3 camere, 6 adulti", "Confermato", "Base per arrivo, Rouen serale, Etretat", "+33 2 76 27 45 54"],
-      ["3-5 ago", "Bayeux", "B&B HOTEL Bayeux", "3 camere matrimoniali", "Pagamento programmato 606 euro; tassa 10,80 euro in struttura", "Check-in prima delle 21:00", "+33 2 31 10 13 30"],
-      ["5-6 ago", "Pontorson / Mont-Saint-Michel", "Auberge de la Baie", "3 camere standard doppie", "Totale indicato 371,13 euro", "Check-in 15:00-21:00; check-out 07:00-11:00", "+33 2 33 68 26 70"],
-      ["6-7 ago", "Saint-Malo", "Ibis Budget Saint-Malo Centre", "Camere twin/doppie", "Pagamento online anticipato 485,07 euro; tassa 5,94 euro in hotel", "Check-in 14:00-24:00; check-out 07:00-12:00. In alternativa centralino Accor +33 892 68 08 32 (a pagamento)", "+33 2 99 82 08 07"],
-      ["7-9 ago", "Lannion", "Hotel Arcadia", "3 camere, 6 adulti", "570 euro + tassa locale 19,80 euro", "Avvisare se arrivo dopo le 20:30", "+33 2 96 48 45 65"],
-      ["9-11 ago", "Quimper", "Escale Oceania Quimper", "3 comfort room", "Totale 579 euro; tasse check-in 17,88 euro", "Check-in da 15:00; check-out prima delle 12:00", "+33 2 98 53 37 37"],
-      ["11-12 ago", "Vannes", "Escale Oceania Vannes", "3 comfort room", "Totale 327 euro; tasse check-in 9,00 euro", "Base breve per Morbihan/Carnac", "+33 2 97 47 59 60"],
-      ["12-13 ago", "Chartres", "Campanile PRIME - Chartres Centre Gare Cathedrale", "3 matrimoniali", "Confermato; Agoda 678955267", "Arrivo realistico 17:30-18:30. Avvisare l'hotel. Verificare parcheggio", "+33 2 37 21 78 00"]
+      ["1-3 ago", "Rouen", "Ibis Rouen Centre Rive Droite Pasteur", "3 camere, 6 adulti", "Confermato", "Base per arrivo, Rouen serale, Etretat", "+33 2 76 27 45 54", null, null],
+      ["3-5 ago", "Bayeux", "B&B HOTEL Bayeux", "3 camere matrimoniali", "Pagamento programmato 606 euro; tassa 10,80 euro in struttura", "Check-in prima delle 21:00", "+33 2 31 10 13 30", 606, 10.80],
+      ["5-6 ago", "Pontorson / Mont-Saint-Michel", "Auberge de la Baie", "3 camere standard doppie", "Totale indicato 371,13 euro", "Check-in 15:00-21:00; check-out 07:00-11:00", "+33 2 33 68 26 70", 371.13, 0],
+      ["6-7 ago", "Saint-Malo", "Ibis Budget Saint-Malo Centre", "Camere twin/doppie", "Pagamento online anticipato 485,07 euro; tassa 5,94 euro in hotel", "Check-in 14:00-24:00; check-out 07:00-12:00. In alternativa centralino Accor +33 892 68 08 32 (a pagamento)", "+33 2 99 82 08 07", 485.07, 5.94],
+      ["7-9 ago", "Lannion", "Hotel Arcadia", "3 camere, 6 adulti", "570 euro + tassa locale 19,80 euro", "Avvisare se arrivo dopo le 20:30", "+33 2 96 48 45 65", 570, 19.80],
+      ["9-11 ago", "Quimper", "Escale Oceania Quimper", "3 comfort room", "Totale 579 euro; tasse check-in 17,88 euro", "Check-in da 15:00; check-out prima delle 12:00", "+33 2 98 53 37 37", 579, 17.88],
+      ["11-12 ago", "Vannes", "Escale Oceania Vannes", "3 comfort room", "Totale 327 euro; tasse check-in 9,00 euro", "Base breve per Morbihan/Carnac", "+33 2 97 47 59 60", 327, 9.00],
+      ["12-13 ago", "Chartres", "Campanile PRIME - Chartres Centre Gare Cathedrale", "3 matrimoniali", "Confermato; Agoda 678955267", "Arrivo realistico 17:30-18:30. Avvisare l'hotel. Verificare parcheggio", "+33 2 37 21 78 00", null, null]
     ];
 
     const checklist = [
@@ -1011,11 +1020,13 @@
           <div class="date-box">
             <strong>${day.dow} ${day.date}</strong>
             <span>${day.base === "Rientro" ? escapeHtml(day.base) : mapsLink(day.base, day.base)}</span>
+            ${day.base === "Rientro" ? "" : `<a class="map-link" style="font-size:0.8rem;color:var(--muted)" href="https://www.google.com/search?q=meteo+${encodeURIComponent(day.base.split("/")[0].trim())}" target="_blank" rel="noopener">meteo</a>`}
           </div>
           <div class="day-body">
             ${day.photo ? `<img class="day-photo" src="${day.photo}" alt="${escapeHtml(day.title)}" loading="lazy">` : ""}
             <h3>${escapeHtml(day.title)}</h3>
             <div class="meta">
+              ${day.id === currentTripDayId() ? '<span class="pill today">OGGI</span>' : ""}
               <span class="pill">${escapeHtml(day.intensity)}</span>
               <span class="pill">${escapeHtml(day.km)}</span>
               <span class="pill">${day.hotel.startsWith("Volo") ? escapeHtml(day.hotel) : mapsLink(day.hotel, `${day.hotel} ${day.base}`)}</span>
@@ -1099,6 +1110,23 @@
       `).join("");
     }
 
+    function euro(n) {
+      return n.toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+    }
+
+    function renderCostSummary() {
+      const known = hotels.filter((h) => h[7] != null);
+      const missing = hotels.filter((h) => h[7] == null).map((h) => h[1]);
+      const rooms = known.reduce((sum, h) => sum + h[7], 0);
+      const taxes = known.reduce((sum, h) => sum + (h[8] || 0), 0);
+      const total = rooms + taxes;
+      document.getElementById("costSummary").innerHTML =
+        `<strong>Totale pernottamenti registrati: ${euro(total)}</strong> ` +
+        `(camere ${euro(rooms)} + tasse note ${euro(taxes)}) &middot; ` +
+        `per coppia ${euro(total / 3)}` +
+        (missing.length ? `<br>Importi non registrati: ${missing.map(escapeHtml).join(", ")} — il totale reale è più alto.` : "");
+    }
+
     function renderCredits() {
       document.getElementById("photoCredits").innerHTML =
         "<strong>Crediti fotografici</strong> (Wikimedia Commons): " +
@@ -1171,11 +1199,16 @@
       navigator.serviceWorker.register("./sw.js").catch(() => {});
     }
 
+    document.getElementById("statDays").textContent = String(tripDays.length);
+    document.getElementById("statNights").textContent = String(tripDays.length - 1);
+    document.getElementById("statBases").textContent = String(hotels.length);
+
     renderDayOptions();
     const todayId = currentTripDayId();
     if (todayId) daySelect.value = todayId;
     renderDays();
     renderHotels();
+    renderCostSummary();
     renderChecklist();
     renderRisks();
     renderDocuments();
