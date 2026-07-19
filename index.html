@@ -713,6 +713,7 @@
       {
         id: "day-1",
         photo: "img/day-1.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Cattedrale_di_Notre-Dame_(Rouen)",
         dow: "Sab",
         date: "1 ago",
         base: "Rouen",
@@ -727,6 +728,7 @@
       {
         id: "day-2",
         photo: "img/day-2.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Étretat",
         dow: "Dom",
         date: "2 ago",
         base: "Rouen",
@@ -741,6 +743,7 @@
       {
         id: "day-3",
         photo: "img/day-3.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Honfleur",
         dow: "Lun",
         date: "3 ago",
         base: "Bayeux",
@@ -755,6 +758,7 @@
       {
         id: "day-4",
         photo: "img/day-4.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Pointe_du_Hoc",
         dow: "Mar",
         date: "4 ago",
         base: "Bayeux",
@@ -769,6 +773,7 @@
       {
         id: "day-5",
         photo: "img/day-5.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Abbazia_di_Mont-Saint-Michel",
         dow: "Mer",
         date: "5 ago",
         base: "Pontorson / Mont-Saint-Michel",
@@ -783,6 +788,7 @@
       {
         id: "day-6",
         photo: "img/day-6.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Saint-Malo",
         dow: "Gio",
         date: "6 ago",
         base: "Saint-Malo",
@@ -797,6 +803,7 @@
       {
         id: "day-7",
         photo: "img/day-7.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Ploumanac'h",
         dow: "Ven",
         date: "7 ago",
         base: "Lannion",
@@ -811,6 +818,7 @@
       {
         id: "day-8",
         photo: "img/day-8.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Trégastel",
         dow: "Sab",
         date: "8 ago",
         base: "Lannion",
@@ -825,6 +833,7 @@
       {
         id: "day-9",
         photo: "img/day-9.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Quimper",
         dow: "Dom",
         date: "9 ago",
         base: "Quimper",
@@ -839,6 +848,7 @@
       {
         id: "day-10",
         photo: "img/day-10.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Pointe_du_Raz",
         dow: "Lun",
         date: "10 ago",
         base: "Quimper",
@@ -853,6 +863,7 @@
       {
         id: "day-11",
         photo: "img/day-11.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Concarneau",
         dow: "Mar",
         date: "11 ago",
         base: "Vannes",
@@ -867,6 +878,7 @@
       {
         id: "day-12",
         photo: "img/day-12.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Allineamenti_di_Carnac",
         dow: "Mer",
         date: "12 ago",
         base: "Chartres",
@@ -881,6 +893,7 @@
       {
         id: "day-13",
         photo: "img/day-13.jpg",
+        wiki: "https://it.wikipedia.org/wiki/Giverny",
         dow: "Gio",
         date: "13 ago",
         base: "Rientro",
@@ -1038,6 +1051,7 @@
               <span class="pill">${escapeHtml(day.intensity)}</span>
               <span class="pill">${escapeHtml(day.km)}</span>
               <span class="pill">${day.hotel.startsWith("Volo") ? escapeHtml(day.hotel) : mapsLink(day.hotel, `${day.hotel} ${day.base}`)}</span>
+              ${day.wiki ? `<a class="pill" style="text-decoration:none" href="${encodeURI(day.wiki)}" target="_blank" rel="noopener">Wikipedia</a>` : ""}
               ${day.critical ? '<span class="pill warning">attenzione</span>' : ""}
             </div>
             <ul class="program">
