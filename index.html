@@ -772,12 +772,12 @@
         dow: "Mer",
         date: "5 ago",
         base: "Pontorson / Mont-Saint-Michel",
-        title: "Bayeux e Mont-Saint-Michel",
-        intensity: "Medio",
+        title: "Bayeux, Abbazia e baia del Mont-Saint-Michel",
+        intensity: "Intenso",
         km: "130-170 km",
         hotel: "Auberge de la Baie",
-        program: ["Mattina Bayeux", "Trasferimento verso area Mont-Saint-Michel", "Check-in Auberge de la Baie", "Entro 17:00 ai parcheggi del Mont (45 min a piedi fino al ritrovo)", "17:45 ritrovo guida a destra dell'ingresso principale", "18:00 Découverte des sables mouvants, 1h30 nella baia (piedi nudi, ricambio caldo)"],
-        priority: "Vincolo fisso ore 18:00: biglietti baia non rimborsabili. Ai parcheggi entro le 17:00",
+        program: ["Mattina: check-out Bayeux, trasferimento verso Ardevon", "Verificare col telefono dell'hotel se il parcheggio e' incluso (il voucher non lo specifica)", "Entrare in Abbazia appena possibile nella fascia 16:00-17:00 (6 biglietti gia' pagati: 4 interi + 2 gratuiti invalidita', non rimborsabili)", "Uscire per tempo: dai parcheggi al ritrovo servono 45 minuti a piedi (dato dal biglietto baia)", "17:45 ritrovo con la guida a destra dell'ingresso principale del Mont", "18:00-19:30 Decouverte des sables mouvants, 1h30 (non 2h) nella baia: piedi nudi, ricambio caldo"],
+        priority: "Doppio vincolo non rimborsabile: uscire dall'Abbazia in tempo per il ritrovo delle 17:45. Entrare in Abbazia alle 16:00 in punto, non ridosso delle 17:00, per avere margine",
         critical: true
       },
       {
@@ -915,13 +915,13 @@
       ["auto", "Voucher BSP Auto / Goldcar disponibile offline"],
       ["auto", "Documenti e patente del conducente"],
       ["hotel", "Prenotazioni hotel salvate in ordine cronologico"],
-      ["attività", "Biglietti Mont-Saint-Michel / baia salvati separatamente"],
+      ["attività", "Biglietti Abbazia Mont-Saint-Michel (5 ago 16:00-17:00, 6 e-ticket) salvati offline sui telefoni"],
+      ["attività", "Biglietti Découverte des sables mouvants (5 ago 18:00) salvati offline sui telefoni"],
       ["attività", "Biglietti Casa di Monet Giverny (13 ago 14:30) salvati offline sui telefoni"],
-      ["attività", "Documento di invalidità con se: richiesto all'ingresso Giverny per il biglietto ridotto"],
+      ["attività", "Documento di invalidità con se: richiesto per i biglietti gratuiti Abbazia e per il ridotto Giverny"],
       ["assicurazione", "Polizza assicurativa salvata offline"],
       ["logistica", "Parcheggi nelle basi centrali: Rouen, Saint-Malo, Vannes"],
-      ["visite", "Orari aggiornati abbazia Mont-Saint-Michel"],
-      ["visite", "Baia Mont-Saint-Michel: 5 ago ore 18:00, ritrovo 17:45 a destra dell'ingresso, parcheggi a 45 min"],
+      ["critical", "Verificare con Auberge de la Baie se il parcheggio e' incluso (il voucher non lo specifica)"],
       ["strada", "Eventuali zone ambientali o vignette francesi"],
       ["bagagli", "Bagagli compatibili con due Peugeot 208"]
     ];
@@ -932,6 +932,7 @@
       ["Ritardo al ritiro auto", "Possibile problema con disponibilità", "Avvisare agenzia se ritardo"],
       ["Carta non accettata al noleggio", "Rischio blocco ritiro auto", "Usare carta di credito fisica valida a nome conducente"],
       ["Giornata del 13 troppo compressa", "Salto della visita Giverny (biglietti non rimborsabili) o rischio sul volo", "Partire da Chartres entro le 12:30 e da Giverny entro le 17:00"],
+      ["Transizione Abbazia -> baia il 5 agosto", "Ultimo ingresso Abbazia 17:00, ritrovo guida baia 17:45: margine stretto, biglietti non rimborsabili", "Entrare in Abbazia alle 16:00 in punto, non ridosso delle 17:00"],
       ["Bagagli su due Peugeot 208", "Spazio limitato", "Bagagli compatti, niente valigie sovradimensionate"]
     ];
 
@@ -941,7 +942,8 @@
       "Voucher BSP Auto / Goldcar",
       "Prenotazioni hotel in ordine cronologico",
       "Prenotazione Chartres Agoda 678955267",
-      "Biglietti Mont-Saint-Michel / baia",
+      "Biglietti Abbazia Mont-Saint-Michel: 6 e-ticket 5 ago 16:00-17:00 (4 interi + 2 gratuiti invalidita')",
+      "Biglietti Découverte des sables mouvants: 6 e-ticket 5 ago 18:00",
       "Biglietti Casa di Monet Giverny: 6 e-ticket 13 ago 14:30, intestati a Luciana Gennari",
       "Polizza assicurativa",
       "Documento di identità e patente del conducente",
