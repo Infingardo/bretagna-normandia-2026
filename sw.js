@@ -1,4 +1,4 @@
-const CACHE = "bretagna-2026-v2";
+const CACHE = "bretagna-2026-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -48,6 +48,20 @@ self.addEventListener("fetch", (event) => {
           return response;
         })
         .catch(() => caches.match("./index.html"))
+    );
+    return;
+  }
+
+  // Manifest: prima la rete (l'identita della PWA deve essere sempre fresca), cache se offline.
+  if (event.request.url.endsWith("manifest.webmanifest")) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const copy = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
     );
     return;
   }
