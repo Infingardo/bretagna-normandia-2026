@@ -937,7 +937,7 @@
     ];
 
     const documents = [
-      "Dossier unico Documenti-Bretagna-2026.pdf (tutto in un file, in ordine d'uso)",
+      ["Dossier unico Documenti-Bretagna-2026.pdf (tutto in un file, in ordine d'uso)", "Documenti-Bretagna-2026.pdf"],
       "Voucher Ryanair / app Ryanair",
       "Voucher BSP Auto / Goldcar",
       "Prenotazioni hotel in ordine cronologico",
@@ -1109,13 +1109,19 @@
     }
 
     function renderDocuments() {
-      documentList.innerHTML = documents.map((doc) => `
-        <div class="check-row">
-          <span class="pill">offline</span>
-          <span>${escapeHtml(doc)}</span>
-          <span class="check-category">prova</span>
-        </div>
-      `).join("");
+      documentList.innerHTML = documents.map((doc) => {
+        const [label, url] = Array.isArray(doc) ? doc : [doc, null];
+        const text = url
+          ? `<a class="map-link" href="${encodeURI(url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>`
+          : escapeHtml(label);
+        return `
+          <div class="check-row">
+            <span class="pill">offline</span>
+            <span>${text}</span>
+            <span class="check-category">prova</span>
+          </div>
+        `;
+      }).join("");
     }
 
     function euro(n) {
