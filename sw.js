@@ -1,4 +1,4 @@
-const CACHE = "bretagna-2026-v3";
+const CACHE = "bretagna-2026-v4";
 const ASSETS = [
   "./",
   "./index.html",
@@ -18,7 +18,35 @@ const ASSETS = [
   "./img/day-10.jpg",
   "./img/day-11.jpg",
   "./img/day-12.jpg",
-  "./img/day-13.jpg"
+  "./img/day-13.jpg",
+  "./img/food/agneau-pre-sale.jpg",
+  "./img/food/andouille-guemene.jpg",
+  "./img/food/andouille-vire.jpg",
+  "./img/food/calvados.jpg",
+  "./img/food/camembert.jpg",
+  "./img/food/caramel-beurre-sale.jpg",
+  "./img/food/cidre.jpg",
+  "./img/food/coco-paimpol.jpg",
+  "./img/food/coquille-saint-jacques.jpg",
+  "./img/food/cotriade.jpg",
+  "./img/food/crepe.jpg",
+  "./img/food/far-breton.jpg",
+  "./img/food/galette-sarrasin.jpg",
+  "./img/food/galette-saucisse.jpg",
+  "./img/food/gateau-breton.jpg",
+  "./img/food/homard-bleu.jpg",
+  "./img/food/huitres-cancale.jpg",
+  "./img/food/kig-ha-farz.jpg",
+  "./img/food/kouign-amann.jpg",
+  "./img/food/livarot.jpg",
+  "./img/food/moules-bouchot.jpg",
+  "./img/food/oignon-roscoff.jpg",
+  "./img/food/palet-breton.jpg",
+  "./img/food/plateau-fruits-de-mer.jpg",
+  "./img/food/pont-leveque.jpg",
+  "./img/food/tarte-normande.jpg",
+  "./img/food/tripes-caen.jpg",
+  "./img/food/trou-normand.jpg"
 ];
 
 self.addEventListener("install", (event) => {
