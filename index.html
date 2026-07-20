@@ -236,6 +236,15 @@
       background: var(--surface-2);
     }
 
+    .food-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: calc(var(--radius) - 2px);
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+
     .credits {
       margin-top: 14px;
       color: var(--muted);
@@ -502,7 +511,8 @@
       .tabs,
       .filters,
       .btn,
-      .day-photo {
+      .day-photo,
+      .food-photo {
         display: none !important;
       }
 
@@ -705,6 +715,7 @@
           <button class="btn" id="resetFood" type="button">Mostra tutto</button>
         </div>
         <div class="risk-grid" id="foodList"></div>
+        <div class="credits" id="foodCredits"></div>
       </div>
     </section>
 
@@ -996,42 +1007,73 @@
     ];
 
     const foodDictionary = [
-      ["Agneau de pré-salé", "Normandia e baia di Mont-Saint-Michel", "Agnello allevato sui prati salmastri periodicamente raggiunti dalle maree. Gli animali si nutrono di vegetazione alofila, caratteristica delle zone costiere. La denominazione pré-salé indica quindi il pascolo e non una carne sottoposta a salatura. È generalmente arrosto o brasato e ha sapore delicato, non propriamente “salato”."],
-      ["Andouille de Guémené", "Bretagna", "Insaccato tradizionale preparato disponendo concentricamente intestini di maiale, successivamente affumicati e stagionati. Al taglio presenta una caratteristica struttura ad anelli. Ha gusto deciso e viene servita fredda, grigliata o come ingrediente di galettes e piatti caldi."],
-      ["Andouille de Vire", "Normandia", "Specialità affumicata della zona di Vire, prodotta con parti dell’apparato digerente del maiale. È più scura, compatta e intensamente affumicata rispetto all’andouille di Guémené. Non è un semplice salame: sapore e consistenza possono risultare impegnativi per chi non ama le frattaglie."],
+      ["Agneau de pré-salé", "Normandia e baia di Mont-Saint-Michel", "Agnello allevato sui prati salmastri periodicamente raggiunti dalle maree. Gli animali si nutrono di vegetazione alofila, caratteristica delle zone costiere. La denominazione pré-salé indica quindi il pascolo e non una carne sottoposta a salatura. È generalmente arrosto o brasato e ha sapore delicato, non propriamente “salato”.", "img/food/agneau-pre-sale.jpg"],
+      ["Andouille de Guémené", "Bretagna", "Insaccato tradizionale preparato disponendo concentricamente intestini di maiale, successivamente affumicati e stagionati. Al taglio presenta una caratteristica struttura ad anelli. Ha gusto deciso e viene servita fredda, grigliata o come ingrediente di galettes e piatti caldi.", "img/food/andouille-guemene.jpg"],
+      ["Andouille de Vire", "Normandia", "Specialità affumicata della zona di Vire, prodotta con parti dell’apparato digerente del maiale. È più scura, compatta e intensamente affumicata rispetto all’andouille di Guémené. Non è un semplice salame: sapore e consistenza possono risultare impegnativi per chi non ama le frattaglie.", "img/food/andouille-vire.jpg"],
       ["Beurre Bordier", "Bretagna", "Burro artigianale di particolare pregio, lavorato e impastato lentamente secondo tecniche tradizionali. La maison Bordier ha sede a Saint-Malo e produce, oltre alle versioni dolce e salata, burri aromatizzati con alghe, cipolla di Roscoff, pepe, agrumi, vaniglia e altre spezie. Non è una denominazione geografica, ma il marchio di un produttore diventato quasi un’istituzione regionale."],
       ["Beurre salé e demi-sel", "Bretagna", "Il burro bretone è tradizionalmente salato. Il demi-sel contiene una quantità moderata di sale, mentre il beurre salé è più sapido e può contenere cristalli ben percepibili. La diffusione del burro salato è legata anche agli antichi privilegi fiscali della Bretagna, dove il sale era meno gravato dalla gabelle rispetto ad altre regioni francesi."],
-      ["Bouchot, moules de", "Normandia e Bretagna", "Cozze allevate su pali verticali di legno infissi nelle zone interessate dalle maree. Questo sistema limita il contatto con il fondale e produce molluschi generalmente piccoli, carnosi e con poco fango. Possono essere preparate alla marinara, con sidro oppure con panna."],
-      ["Calvados", "Normandia", "Acquavite ottenuta dalla distillazione del sidro di mele, talvolta con una percentuale di pere secondo la zona di produzione. Dopo la distillazione viene affinata in legno. Può essere bevuta come digestivo, utilizzata in cucina o servita nel tradizionale trou normand."],
-      ["Camembert de Normandie", "Normandia", "Formaggio vaccino a pasta molle e crosta fiorita bianca. Il vero Camembert de Normandie AOP è prodotto secondo un disciplinare preciso, tradizionalmente con latte crudo e modellatura manuale. Non va confuso con i numerosi formaggi industriali che riportano semplicemente la parola camembert sulla confezione."],
-      ["Caramel au beurre salé", "Bretagna", "Caramello preparato con zucchero, panna e burro salato. Può presentarsi come crema spalmabile, salsa, ripieno oppure caramella morbida. Il sale riduce la sensazione stucchevole e rende più evidente la componente aromatica del burro."],
-      ["Cidre", "Normandia e Bretagna", "Sidro di mele, generalmente meno alcolico del vino. Può essere doux, più dolce; demi-sec; oppure brut, più secco. In Bretagna accompagna tradizionalmente crêpes e galettes e viene spesso servito nella bolée, una tazza di ceramica. Normandia e Bretagna possiedono stili differenti, ma una superiorità assoluta dell’una sull’altra sarebbe difficile da dimostrare senza un campionamento adeguato."],
-      ["Coco de Paimpol", "Bretagna", "Fagiolo bianco coltivato nella zona di Paimpol, protetto da denominazione d’origine. Ha buccia sottile, consistenza cremosa e buona capacità di assorbire i sapori. Viene utilizzato in zuppe, stufati e accompagnamenti di carne o pesce."],
-      ["Coquille Saint-Jacques", "Normandia e Bretagna", "Cappasanta pescata soprattutto nella Manica e lungo la costa settentrionale bretone. Si consuma cruda, appena scottata oppure gratinata nel proprio guscio. La stagione di pesca è regolamentata: in agosto è quindi più probabile trovare prodotto conservato o di provenienza diversa, non la capasanta locale appena pescata."],
-      ["Cotriade", "Bretagna", "Zuppa o stufato di pesce nato sulle imbarcazioni e nei porti bretoni. La composizione cambia secondo il pescato disponibile e può comprendere sgombro, nasello, grongo, sardine, patate e cipolle. È concettualmente vicina alla bouillabaisse, ma generalmente più semplice e meno speziata."],
-      ["Crêpe", "Bretagna", "Preparazione sottile ottenuta prevalentemente con farina di frumento e destinata soprattutto alle farciture dolci: zucchero e burro, caramello salato, confettura, cioccolato oppure flambé. Nell’uso comune i termini crêpe e galette possono variare localmente, ma nelle crêperies la distinzione più frequente è fra crêpe dolce di frumento e galette salata di grano saraceno."],
+      ["Bouchot, moules de", "Normandia e Bretagna", "Cozze allevate su pali verticali di legno infissi nelle zone interessate dalle maree. Questo sistema limita il contatto con il fondale e produce molluschi generalmente piccoli, carnosi e con poco fango. Possono essere preparate alla marinara, con sidro oppure con panna.", "img/food/moules-bouchot.jpg"],
+      ["Calvados", "Normandia", "Acquavite ottenuta dalla distillazione del sidro di mele, talvolta con una percentuale di pere secondo la zona di produzione. Dopo la distillazione viene affinata in legno. Può essere bevuta come digestivo, utilizzata in cucina o servita nel tradizionale trou normand.", "img/food/calvados.jpg"],
+      ["Camembert de Normandie", "Normandia", "Formaggio vaccino a pasta molle e crosta fiorita bianca. Il vero Camembert de Normandie AOP è prodotto secondo un disciplinare preciso, tradizionalmente con latte crudo e modellatura manuale. Non va confuso con i numerosi formaggi industriali che riportano semplicemente la parola camembert sulla confezione.", "img/food/camembert.jpg"],
+      ["Caramel au beurre salé", "Bretagna", "Caramello preparato con zucchero, panna e burro salato. Può presentarsi come crema spalmabile, salsa, ripieno oppure caramella morbida. Il sale riduce la sensazione stucchevole e rende più evidente la componente aromatica del burro.", "img/food/caramel-beurre-sale.jpg"],
+      ["Cidre", "Normandia e Bretagna", "Sidro di mele, generalmente meno alcolico del vino. Può essere doux, più dolce; demi-sec; oppure brut, più secco. In Bretagna accompagna tradizionalmente crêpes e galettes e viene spesso servito nella bolée, una tazza di ceramica. Normandia e Bretagna possiedono stili differenti, ma una superiorità assoluta dell’una sull’altra sarebbe difficile da dimostrare senza un campionamento adeguato.", "img/food/cidre.jpg"],
+      ["Coco de Paimpol", "Bretagna", "Fagiolo bianco coltivato nella zona di Paimpol, protetto da denominazione d’origine. Ha buccia sottile, consistenza cremosa e buona capacità di assorbire i sapori. Viene utilizzato in zuppe, stufati e accompagnamenti di carne o pesce.", "img/food/coco-paimpol.jpg"],
+      ["Coquille Saint-Jacques", "Normandia e Bretagna", "Cappasanta pescata soprattutto nella Manica e lungo la costa settentrionale bretone. Si consuma cruda, appena scottata oppure gratinata nel proprio guscio. La stagione di pesca è regolamentata: in agosto è quindi più probabile trovare prodotto conservato o di provenienza diversa, non la capasanta locale appena pescata.", "img/food/coquille-saint-jacques.jpg"],
+      ["Cotriade", "Bretagna", "Zuppa o stufato di pesce nato sulle imbarcazioni e nei porti bretoni. La composizione cambia secondo il pescato disponibile e può comprendere sgombro, nasello, grongo, sardine, patate e cipolle. È concettualmente vicina alla bouillabaisse, ma generalmente più semplice e meno speziata.", "img/food/cotriade.jpg"],
+      ["Crêpe", "Bretagna", "Preparazione sottile ottenuta prevalentemente con farina di frumento e destinata soprattutto alle farciture dolci: zucchero e burro, caramello salato, confettura, cioccolato oppure flambé. Nell’uso comune i termini crêpe e galette possono variare localmente, ma nelle crêperies la distinzione più frequente è fra crêpe dolce di frumento e galette salata di grano saraceno.", "img/food/crepe.jpg"],
       ["Douillon", "Normandia", "Mela intera, talvolta pera, avvolta in pasta sfoglia o brisée e cotta al forno. Può essere farcita con zucchero, burro, cannella o Calvados. È un dolce rustico che concentra in una sola preparazione le due grandi costanti normanne: mela e burro."],
-      ["Far breton", "Bretagna", "Dolce dalla consistenza compatta e umida, simile a un flan spesso, preparato con latte, uova, farina e zucchero. La versione oggi più diffusa contiene prugne secche, anche se queste non facevano parte necessariamente delle ricette più antiche."],
-      ["Fruits de mer, plateau de", "Normandia e Bretagna", "Grande piatto di molluschi e crostacei serviti freddi, solitamente comprendente ostriche, cozze, gamberi, granchi, bulots e talvolta scampi o astice. Prima di ordinarlo conviene controllare composizione, prezzo per persona e presenza di elementi aggiunti con supplemento."],
-      ["Galette de sarrasin", "Bretagna", "Disco sottile preparato con farina di grano saraceno, acqua e sale, tradizionalmente cotto sul bilig, una piastra circolare. La complète contiene prosciutto, formaggio e uovo. Il grano saraceno è naturalmente privo di glutine, ma nelle preparazioni commerciali non è garantita l’assenza di contaminazioni o dell’aggiunta di altre farine."],
-      ["Galette-saucisse", "Bretagna", "Salsiccia di maiale grigliata e avvolta in una galette di grano saraceno. È un cibo di strada tipico soprattutto dell’area di Rennes e dell’Alta Bretagna. Essenziale, sostanzioso e privo di ambizioni decorative."],
-      ["Gâteau breton", "Bretagna", "Torta bassa e compatta, ricca di burro e tuorli, dalla consistenza friabile ma più morbida di un biscotto. Può essere semplice oppure farcita con confettura di prugne o caramello al burro salato. Si conserva a lungo, almeno teoricamente."],
-      ["Homard bleu breton", "Bretagna", "Astice europeo riconoscibile per la colorazione blu scura del carapace prima della cottura. È più raro e costoso dell’astice americano. Viene bollito, grigliato o servito con salse al burro; nei ristoranti è opportuno verificare il prezzo, spesso calcolato in base al peso."],
-      ["Huîtres de Cancale", "Bretagna", "Ostriche allevate nella baia di Mont-Saint-Michel davanti a Cancale. Possono essere piatte, appartenenti alla specie europea Ostrea edulis, oppure concave, oggi molto più diffuse. Sul porto vengono vendute anche direttamente dai produttori e consumate crude, spesso seduti sul muretto davanti al mare."],
-      ["Kig ha farz", "Bretagna", "Piatto tradizionale del Finistère settentrionale, costituito da carne e verdure bollite insieme a un impasto di grano saraceno cotto nel brodo dentro un sacchetto di tela. Il farz viene poi sbriciolato e accompagnato da una salsa di burro e cipolle chiamata lipig. È una cucina contadina robusta, più adatta al vento atlantico che a un pranzo balneare leggero."],
-      ["Kouign-amann", "Bretagna", "Dolce originario di Douarnenez il cui nome significa letteralmente “dolce di burro”. È formato da pasta ripiegata più volte con burro salato e zucchero: durante la cottura lo zucchero caramellizza e crea una crosta croccante, mentre l’interno rimane sfogliato e morbido. Va mangiato preferibilmente tiepido e senza chiedere informazioni nutrizionali nel momento sbagliato."],
-      ["Livarot", "Normandia", "Formaggio vaccino a pasta molle e crosta lavata, dal profumo intenso e dal gusto deciso. È tradizionalmente circondato da cinque strisce vegetali, motivo per cui viene soprannominato colonel, colonnello. Rispetto al Camembert è più sapido, aromatico e meno accomodante."],
+      ["Far breton", "Bretagna", "Dolce dalla consistenza compatta e umida, simile a un flan spesso, preparato con latte, uova, farina e zucchero. La versione oggi più diffusa contiene prugne secche, anche se queste non facevano parte necessariamente delle ricette più antiche.", "img/food/far-breton.jpg"],
+      ["Fruits de mer, plateau de", "Normandia e Bretagna", "Grande piatto di molluschi e crostacei serviti freddi, solitamente comprendente ostriche, cozze, gamberi, granchi, bulots e talvolta scampi o astice. Prima di ordinarlo conviene controllare composizione, prezzo per persona e presenza di elementi aggiunti con supplemento.", "img/food/plateau-fruits-de-mer.jpg"],
+      ["Galette de sarrasin", "Bretagna", "Disco sottile preparato con farina di grano saraceno, acqua e sale, tradizionalmente cotto sul bilig, una piastra circolare. La complète contiene prosciutto, formaggio e uovo. Il grano saraceno è naturalmente privo di glutine, ma nelle preparazioni commerciali non è garantita l’assenza di contaminazioni o dell’aggiunta di altre farine.", "img/food/galette-sarrasin.jpg"],
+      ["Galette-saucisse", "Bretagna", "Salsiccia di maiale grigliata e avvolta in una galette di grano saraceno. È un cibo di strada tipico soprattutto dell’area di Rennes e dell’Alta Bretagna. Essenziale, sostanzioso e privo di ambizioni decorative.", "img/food/galette-saucisse.jpg"],
+      ["Gâteau breton", "Bretagna", "Torta bassa e compatta, ricca di burro e tuorli, dalla consistenza friabile ma più morbida di un biscotto. Può essere semplice oppure farcita con confettura di prugne o caramello al burro salato. Si conserva a lungo, almeno teoricamente.", "img/food/gateau-breton.jpg"],
+      ["Homard bleu breton", "Bretagna", "Astice europeo riconoscibile per la colorazione blu scura del carapace prima della cottura. È più raro e costoso dell’astice americano. Viene bollito, grigliato o servito con salse al burro; nei ristoranti è opportuno verificare il prezzo, spesso calcolato in base al peso.", "img/food/homard-bleu.jpg"],
+      ["Huîtres de Cancale", "Bretagna", "Ostriche allevate nella baia di Mont-Saint-Michel davanti a Cancale. Possono essere piatte, appartenenti alla specie europea Ostrea edulis, oppure concave, oggi molto più diffuse. Sul porto vengono vendute anche direttamente dai produttori e consumate crude, spesso seduti sul muretto davanti al mare.", "img/food/huitres-cancale.jpg"],
+      ["Kig ha farz", "Bretagna", "Piatto tradizionale del Finistère settentrionale, costituito da carne e verdure bollite insieme a un impasto di grano saraceno cotto nel brodo dentro un sacchetto di tela. Il farz viene poi sbriciolato e accompagnato da una salsa di burro e cipolle chiamata lipig. È una cucina contadina robusta, più adatta al vento atlantico che a un pranzo balneare leggero.", "img/food/kig-ha-farz.jpg"],
+      ["Kouign-amann", "Bretagna", "Dolce originario di Douarnenez il cui nome significa letteralmente “dolce di burro”. È formato da pasta ripiegata più volte con burro salato e zucchero: durante la cottura lo zucchero caramellizza e crea una crosta croccante, mentre l’interno rimane sfogliato e morbido. Va mangiato preferibilmente tiepido e senza chiedere informazioni nutrizionali nel momento sbagliato.", "img/food/kouign-amann.jpg"],
+      ["Livarot", "Normandia", "Formaggio vaccino a pasta molle e crosta lavata, dal profumo intenso e dal gusto deciso. È tradizionalmente circondato da cinque strisce vegetali, motivo per cui viene soprannominato colonel, colonnello. Rispetto al Camembert è più sapido, aromatico e meno accomodante.", "img/food/livarot.jpg"],
       ["Moules à la normande", "Normandia", "Cozze cotte con scalogno o cipolla, sidro e panna, talvolta con un’aggiunta di Calvados. Rispetto alle classiche moules marinières, la salsa è più ricca e cremosa."],
-      ["Oignon de Roscoff", "Bretagna", "Cipolla rosa originaria della zona di Roscoff, dolce, profumata e poco aggressiva. È legata alla storia dei Johnnies, venditori bretoni che attraversavano la Manica per vendere cipolle in Gran Bretagna, spesso spostandosi in bicicletta con le trecce di cipolle appese al telaio."],
-      ["Palet breton", "Bretagna", "Biscotto spesso e friabile, preparato con abbondante burro salato e tuorli d’uovo. Il nome deriva dalla forma simile a quella di un dischetto da gioco. La galette bretonne dolce è invece generalmente più sottile e croccante."],
-      ["Pont-l’Évêque", "Normandia", "Formaggio vaccino quadrato a pasta molle e crosta lavata, prodotto almeno dal Medioevo. Ha profumo pronunciato ma un gusto che, nelle forme ben affinate, può essere relativamente morbido e cremoso. È uno dei grandi formaggi del Pays d’Auge."],
+      ["Oignon de Roscoff", "Bretagna", "Cipolla rosa originaria della zona di Roscoff, dolce, profumata e poco aggressiva. È legata alla storia dei Johnnies, venditori bretoni che attraversavano la Manica per vendere cipolle in Gran Bretagna, spesso spostandosi in bicicletta con le trecce di cipolle appese al telaio.", "img/food/oignon-roscoff.jpg"],
+      ["Palet breton", "Bretagna", "Biscotto spesso e friabile, preparato con abbondante burro salato e tuorli d’uovo. Il nome deriva dalla forma simile a quella di un dischetto da gioco. La galette bretonne dolce è invece generalmente più sottile e croccante.", "img/food/palet-breton.jpg"],
+      ["Pont-l’Évêque", "Normandia", "Formaggio vaccino quadrato a pasta molle e crosta lavata, prodotto almeno dal Medioevo. Ha profumo pronunciato ma un gusto che, nelle forme ben affinate, può essere relativamente morbido e cremoso. È uno dei grandi formaggi del Pays d’Auge.", "img/food/pont-leveque.jpg"],
       ["Poulet vallée d’Auge", "Normandia", "Pollo rosolato e cotto con mele, funghi, panna, sidro e talvolta Calvados. Riunisce quasi programmaticamente i principali ingredienti della regione e rappresenta la cucina normanna nella sua forma più classica e sostanziosa."],
       ["Sarrasin o blé noir", "Bretagna", "Grano saraceno utilizzato soprattutto per preparare le galettes. Non è propriamente un cereale e non appartiene alla famiglia del frumento. Si adattava bene ai terreni bretoni e, per secoli, rappresentò un alimento fondamentale delle popolazioni rurali."],
-      ["Tarte normande", "Normandia", "Crostata di mele arricchita con una crema di uova e panna, spesso profumata con Calvados e completata con mandorle. È più ricca e morbida rispetto a una semplice tarte aux pommes."],
+      ["Tarte normande", "Normandia", "Crostata di mele arricchita con una crema di uova e panna, spesso profumata con Calvados e completata con mandorle. È più ricca e morbida rispetto a una semplice tarte aux pommes.", "img/food/tarte-normande.jpg"],
       ["Teurgoule", "Normandia", "Riso al latte aromatizzato alla cannella e cotto molto lentamente in una terrina di terracotta. Durante la lunga cottura si forma una crosta scura superficiale, mentre l’interno diventa cremoso. Il nome deriverebbe dall’espressione normanna se tordre la goule, cioè “storcere la bocca”, per il calore o per l’originaria abbondanza di spezie."],
-      ["Tripes à la mode de Caen", "Normandia", "Trippa bovina cotta per molte ore con carote, cipolle, aromi, sidro e Calvados in una tradizionale pentola di terracotta chiamata tripière. È una delle specialità normanne più antiche e caratterizzate. Non va ordinata aspettandosi un piatto timido."],
-      ["Trou normand", "Normandia", "Piccola dose di Calvados bevuta fra due portate, talvolta accompagnata da sorbetto alla mela. Secondo la tradizione dovrebbe riaprire l’appetito e facilitare la prosecuzione del pasto. È più correttamente considerabile una pausa alcolica ritualizzata che una procedura digestiva scientificamente validata."],
+      ["Tripes à la mode de Caen", "Normandia", "Trippa bovina cotta per molte ore con carote, cipolle, aromi, sidro e Calvados in una tradizionale pentola di terracotta chiamata tripière. È una delle specialità normanne più antiche e caratterizzate. Non va ordinata aspettandosi un piatto timido.", "img/food/tripes-caen.jpg"],
+      ["Trou normand", "Normandia", "Piccola dose di Calvados bevuta fra due portate, talvolta accompagnata da sorbetto alla mela. Secondo la tradizione dovrebbe riaprire l’appetito e facilitare la prosecuzione del pasto. È più correttamente considerabile una pausa alcolica ritualizzata che una procedura digestiva scientificamente validata.", "img/food/trou-normand.jpg"],
     ];
+    const foodCredits = [
+      ["Agneau de pré-salé", "Le Mont-Saint-Michel France Salt-Meadow-Sheeps-02.jpg", "CEphoto, Uwe Aranas", "CC BY-SA 3.0"],
+      ["Andouille de Guémené", "Andouille-Scheiben.jpg", "Pwagenblast", "CC BY 3.0"],
+      ["Andouille de Vire", "AndouilleDeVirePommeau.jpg", "Ikmo-ned", "CC BY-SA 4.0"],
+      ["Bouchot, moules de", "Bouchot baie de Wissant P1030356.JPG", "Pline", "CC BY-SA 3.0"],
+      ["Calvados", "Bottle of Boulard calvados.jpg", "Miika Silfverberg from Vantaa, Finland", "CC BY-SA 2.0"],
+      ["Camembert de Normandie", "Camembert de Normandie (AOP) 10.jpg", "Coyau", "CC BY-SA 3.0"],
+      ["Caramel au beurre salé", "Crème de Salidou (caramel au beurre salé).jpg", "Ji-Elle", "CC BY-SA 4.0"],
+      ["Cidre", "Bolée de cidre au Bouchon Breton (La Valbonne).jpg", "Benoît Prieur", "CC0"],
+      ["Coco de Paimpol", "Coco de paimpol1.jpg", "Asabengurtza", "CC BY-SA 3.0"],
+      ["Coquille Saint-Jacques", "Pecten maximus 02.jpg", "H. Zell", "CC BY-SA 3.0"],
+      ["Cotriade", "Cotriade bretonne.jpg", "Isaac Wedin", "CC BY 2.0"],
+      ["Crêpe", "Crêpe Suzette-01.jpg", "jlastras", "CC BY 2.0"],
+      ["Far breton", "Far breton.jpg", "Manuel FLURY", "CC BY-SA 3.0"],
+      ["Fruits de mer, plateau de", "Skaldjursplatå.jpg", "I99pema", "CC BY-SA 4.0"],
+      ["Galette de sarrasin", "Galette de sarrasin (blé noir).jpg", "JeanLed11", "CC BY-SA 4.0"],
+      ["Galette-saucisse", "La galette saucisse de Rennes (3503247167).jpg", "Laurent GUEDON from Paris, France", "CC BY-SA 2.0"],
+      ["Gâteau breton", "Gâteau breton 8Y4A5039.jpg", "XIIIfromTOKYO", "CC BY-SA 4.0"],
+      ["Homard bleu breton", "Homard (Homarus gammarus) (Ifremer 00737-84856 - 40917).jpg", "Olivier Dugornay (Ifremer)", "CC BY 4.0"],
+      ["Huîtres de Cancale", "Huitres Cancale.jpg", "Myrabella", "CC BY-SA 3.0"],
+      ["Kig ha farz", "Kig Ha Farz (Polyptyque).jpg", "Jean-Marc ALBERT", "CC BY 2.0"],
+      ["Kouign-amann", "Kouign Amann at bakery in Trégastel.jpg", "Syced", "CC0"],
+      ["Livarot", "Livarot (fromage) 11.jpg", "Coyau", "CC BY-SA 3.0"],
+      ["Oignon de Roscoff", "Oignon rosé de roscoffP1000686.jpg", "Glaoadare", "CC BY 3.0"],
+      ["Palet breton", "Palet breton.jpg", "tetue", "CC BY-SA 2.0"],
+      ["Pont-l’Évêque", "Fromage pont l'évêque (petit).JPG", "LAGRIC", "CC BY-SA 3.0"],
+      ["Tarte normande", "Tarte aux pommes 002.JPG", "MyName (Adri08 (<span class=\"signature-talk\"", "CC BY-SA 3.0"],
+      ["Tripes à la mode de Caen", "Tripe à la mode de Caen 2.jpg", "Yun Huang Yong", "CC BY-SA 2.0"],
+      ["Trou normand", "Trou normand.jpg", "Erica Ashleson", "CC BY 2.0"],
+    ];
+
     const storageKey = "bretagna-normandia-2026-checks";
     let checks = JSON.parse(localStorage.getItem(storageKey) || "{}");
 
@@ -1181,8 +1223,9 @@
       const filtered = foodDictionary.filter(([term, region, desc]) =>
         !query || `${term} ${region} ${desc}`.toLowerCase().includes(query)
       );
-      foodList.innerHTML = filtered.map(([term, region, desc]) => `
+      foodList.innerHTML = filtered.map(([term, region, desc, photo]) => `
         <article class="risk-card">
+          ${photo ? `<img class="food-photo" src="${photo}" alt="${escapeHtml(term)}" loading="lazy">` : ""}
           <h3>${escapeHtml(term)}</h3>
           <div><span class="pill">${escapeHtml(region)}</span></div>
           <div>${escapeHtml(desc)}</div>
@@ -1228,6 +1271,14 @@
         "<strong>Crediti fotografici</strong> (Wikimedia Commons): " +
         photoCredits.map(([date, file, artist, license]) =>
           `<a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}" target="_blank" rel="noopener">${escapeHtml(date)}</a>: ${escapeHtml(artist)}, ${escapeHtml(license)}`
+        ).join(" · ");
+    }
+
+    function renderFoodCredits() {
+      document.getElementById("foodCredits").innerHTML =
+        "<strong>Crediti fotografici</strong> (Wikimedia Commons): " +
+        foodCredits.map(([term, file, artist, license]) =>
+          `<a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}" target="_blank" rel="noopener">${escapeHtml(term)}</a>: ${escapeHtml(artist)}, ${escapeHtml(license)}`
         ).join(" · ");
     }
 
@@ -1314,6 +1365,7 @@
     renderChecklist();
     renderRisks();
     renderFood();
+    renderFoodCredits();
     renderDocuments();
     renderCredits();
   </script>
