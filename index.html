@@ -602,7 +602,6 @@
       <button class="tab" type="button" data-section="map">Mappa</button>
       <button class="tab" type="button" data-section="bookings">Prenotazioni</button>
       <button class="tab" type="button" data-section="checklist">Checklist</button>
-      <button class="tab" type="button" data-section="risks">Rischi</button>
       <button class="tab" type="button" data-section="food">Gastronomia</button>
       <button class="tab" type="button" data-section="documents">Documenti</button>
     </nav>
@@ -726,13 +725,6 @@
       </div>
     </section>
 
-    <section class="section" id="risks">
-      <div class="panel">
-        <h2>Rischi pratici</h2>
-        <div class="risk-grid" id="riskList"></div>
-      </div>
-    </section>
-
     <section class="section" id="food">
       <div class="panel">
         <h2>Dizionario gastronomico di Normandia e Bretagna</h2>
@@ -759,6 +751,11 @@
           <span class="check-category">richiede rete</span>
         </div>
         <div class="credits" id="photoCredits"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Bigini: racconti da leggere sul posto</h2>
+        <div class="checklist" id="storyIndexList"></div>
       </div>
     </section>
   </div>
@@ -997,16 +994,6 @@
       ["bagagli", "Bagagli compatibili con due Peugeot 208"]
     ];
 
-    const risks = [
-      ["Troppe tappe in un giorno", "Stanchezza, ritardi, visite superficiali", "2-3 obiettivi reali al giorno"],
-      ["Parcheggi centrali", "Perdita di tempo, stress", "Cercare parking prima dell'arrivo"],
-      ["Ritardo al ritiro auto", "Possibile problema con disponibilità", "Avvisare agenzia se ritardo"],
-      ["Carta non accettata al noleggio", "Rischio blocco ritiro auto", "Usare carta di credito fisica valida a nome conducente"],
-      ["Giornata del 13 troppo compressa", "Salto della visita Giverny (biglietti non rimborsabili) o rischio sul volo", "Partire da Chartres entro le 12:30 e da Giverny entro le 17:00"],
-      ["Transizione Abbazia -> baia il 5 agosto", "Ultimo ingresso Abbazia 17:00, ritrovo guida baia 17:45: margine stretto, biglietti non rimborsabili", "Entrare in Abbazia alle 16:00 in punto, non ridosso delle 17:00"],
-      ["Bagagli su due Peugeot 208", "Spazio limitato", "Bagagli compatti, niente valigie sovradimensionate"]
-    ];
-
     const documents = [
       ["Dossier unico Documenti-Bretagna-2026.pdf (protetto da password, condivisa nel gruppo WhatsApp)", "Documenti-Bretagna-2026.pdf"],
       "Voucher Ryanair / app Ryanair",
@@ -1114,7 +1101,6 @@
     const dayList = document.getElementById("dayList");
     const hotelList = document.getElementById("hotelList");
     const checkList = document.getElementById("checkList");
-    const riskList = document.getElementById("riskList");
     const foodList = document.getElementById("foodList");
     const searchFood = document.getElementById("searchFood");
     const documentList = document.getElementById("documentList");
@@ -1250,16 +1236,6 @@
       openCriticalCount.textContent = String(criticalOpen);
     }
 
-    function renderRisks() {
-      riskList.innerHTML = risks.map(([risk, impact, mitigation]) => `
-        <article class="risk-card">
-          <h3>${escapeHtml(risk)}</h3>
-          <div><span class="key">Impatto:</span> ${escapeHtml(impact)}</div>
-          <div><span class="key">Mitigazione:</span> ${escapeHtml(mitigation)}</div>
-        </article>
-      `).join("");
-    }
-
     function renderFood() {
       const query = searchFood.value.trim().toLowerCase();
       const filtered = foodDictionary.filter(([term, region, desc]) =>
@@ -1324,6 +1300,17 @@
         ).join(" · ");
     }
 
+    function renderStoryIndex() {
+      const withStory = tripDays.filter((day) => day.story);
+      document.getElementById("storyIndexList").innerHTML = withStory.map((day) => `
+        <div class="check-row">
+          <span class="pill">${day.dow} ${day.date}</span>
+          <span><a class="map-link" href="javascript:void(0)" onclick="goToStory('${day.id}')">${escapeHtml(day.story.title)}</a></span>
+          <span class="check-category">${escapeHtml(day.base)}</span>
+        </div>
+      `).join("") || '<div class="empty">Nessun racconto ancora aggiunto.</div>';
+    }
+
     function selectedDayText() {
       const fallback = tripDays.find((day) => day.id === currentTripDayId()) || tripDays[0];
       const selected = daySelect.value === "all" ? fallback : tripDays.find((day) => day.id === daySelect.value);
@@ -1338,13 +1325,26 @@
       ].join("\n");
     }
 
-    document.querySelectorAll(".tab").forEach((tab) => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach((item) => item.classList.remove("active"));
-        document.querySelectorAll(".section").forEach((item) => item.classList.remove("active"));
-        tab.classList.add("active");
-        document.getElementById(tab.dataset.section).classList.add("active");
+    function activateTab(sectionId) {
+      document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item.dataset.section === sectionId));
+      document.querySelectorAll(".section").forEach((item) => item.classList.toggle("active", item.id === sectionId));
+    }
+
+    function goToStory(dayId) {
+      activateTab("timeline");
+      daySelect.value = dayId;
+      searchDays.value = "";
+      renderDays();
+      requestAnimationFrame(() => {
+        const details = document.querySelector(`.day-card[data-day="${dayId}"] details.story`);
+        if (!details) return;
+        details.open = true;
+        details.scrollIntoView({ behavior: "smooth", block: "start" });
       });
+    }
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => activateTab(tab.dataset.section));
     });
 
     daySelect.addEventListener("change", renderDays);
@@ -1405,11 +1405,11 @@
     renderHotels();
     renderCostSummary();
     renderChecklist();
-    renderRisks();
     renderFood();
     renderFoodCredits();
     renderDocuments();
     renderCredits();
+    renderStoryIndex();
   </script>
 </body>
 </html>
