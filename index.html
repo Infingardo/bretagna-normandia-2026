@@ -256,6 +256,34 @@
       color: inherit;
     }
 
+    .story {
+      margin-top: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+
+    .story summary {
+      cursor: pointer;
+      font-weight: 650;
+      color: var(--primary-2);
+    }
+
+    .story h4 {
+      margin: 14px 0 6px;
+      font-size: 0.95rem;
+    }
+
+    .story p {
+      margin: 0 0 8px;
+      font-size: 0.93rem;
+    }
+
+    .story .notice {
+      margin: 10px 0;
+      font-size: 0.93rem;
+      font-style: italic;
+    }
+
     .meta {
       display: flex;
       flex-wrap: wrap;
@@ -512,7 +540,8 @@
       .filters,
       .btn,
       .day-photo,
-      .food-photo {
+      .food-photo,
+      .story {
         display: none !important;
       }
 
@@ -929,7 +958,8 @@
         hotel: "Volo FR3500 BVA -> BGY",
         program: ["Mattina Chartres: cattedrale e centro storico a piedi", "12:15 partenza verso Giverny, pranzo rapido lungo strada", "14:30 Casa e giardini di Monet - biglietti a orario, ingresso Sente Leroy porta n.1 bis", "Entro 17:00 partenza per Beauvais", "Riconsegna auto alle 20:00", "Volo BVA -> BGY alle 22:25"],
         priority: "Due vincoli fissi: Giverny 14:30 e auto 20:00. Da Chartres entro le 12:30, da Giverny entro le 17:00",
-        critical: true
+        critical: true,
+        story: {"title": "Un racconto su Giverny: il giardino che Monet si è costruito per dipingere", "html": "<p>A Giverny non vai semplicemente a vedere la casa dove abitava Monet. Vai a vedere un paesaggio che Monet si è fabbricato apposta per poterlo dipingere.</p>\n<p>Monet arrivò a Giverny nel 1883 e vi rimase fino alla morte, nel 1926: quarantatré anni. All'inizio prese la casa in affitto; poi, quando cominciò finalmente a guadagnare molto, la comprò e trasformò progressivamente tutta la proprietà. Il giardino non era dunque uno sfondo pittoresco trovato per caso: era, a tutti gli effetti, una delle sue opere.</p>\n\n<div class=\"notice\">«La cosa geniale è che Monet non dipingeva semplicemente il giardino: prima costruiva il soggetto e poi lo dipingeva.»</div>\n\n<h4>Il Clos Normand</h4>\n<p>Nel Clos Normand, il giardino davanti alla casa, Monet abolì l'idea del giardino ordinato alla francese, con le aiuole geometriche e disciplinate. Voleva masse di colore, fiori di altezze diverse, combinazioni che cambiassero continuamente con le stagioni. Studiava cataloghi, acquistava varietà nuove, dava istruzioni precise ai giardinieri e poteva infuriarsi se una composizione di colori non funzionava: un giardiniere serissimo, non un pittore che ogni tanto annaffiava due rose.</p>\n\n<h4>Il laghetto non era lì</h4>\n<p>Il celebre stagno delle ninfee non faceva parte della proprietà originaria: Monet lo fece creare acquistando un terreno oltre la ferrovia e deviando un piccolo corso d'acqua. I vicini protestarono, temendo che le piante esotiche potessero avvelenare l'acqua o danneggiare i lavatoi.</p>\n<p>Il giardino d'acqua fu ispirato anche dalle stampe giapponesi che Monet collezionava avidamente. Il ponte richiama quelli giapponesi, ma Monet lo fece dipingere di verde anziché del tradizionale rosso. Intorno piantò bambù, aceri, peonie, salici piangenti e naturalmente ninfee.</p>\n\n<div class=\"notice\">«È giapponese, sì, ma è un Giappone completamente reinventato da Monet.»</div>\n\n<h4>Dentro casa: guarda i colori</h4>\n<p>La casa rosa con le imposte verdi non è affatto sobria. Monet detestava gli interni borghesi scuri e pesanti tipici dell'Ottocento. La sala da pranzo è gialla, quasi abbagliante; la cucina è azzurra, rivestita di piastrelle, con le pentole di rame lucidissime. Non sono colori scelti dopo per rendere il luogo più \"impressionista\": rispecchiano il gusto di Monet. Sulle pareti, moltissime stampe giapponesi con ponti, pioggia, neve, rami che attraversano la scena — espedienti che aiutano a capire perché nei suoi quadri l'immagine spesso sembri continuare oltre la cornice.</p>\n\n<h4>Le ninfee non sono quadretti graziosi</h4>\n<p>Nelle ultime opere Monet elimina quasi tutto ciò che permette di orientarsi: spesso non c'è l'orizzonte, non sappiamo più dove finisca l'acqua e cominci il cielo. Il soggetto non è \"un fiore\", è la luce che cambia continuamente e rende instabile il mondo. Il giardino di Giverny divenne così non solo il suo motivo preferito, ma lo strumento attraverso cui la sua pittura cambiò profondamente.</p>\n\n<h4>Monet anziano: il dettaglio che cambia tutto</h4>\n<p>Negli ultimi anni Monet soffrì di cataratta: vedeva i colori alterati, soprattutto i blu. Dopo gli interventi agli occhi tornò persino su alcune tele, perché le vedeva diversamente. Attenzione però a non semplificare troppo: la sua ricerca sui riflessi e sulla dissoluzione delle forme era cominciata molto prima. La malattia influenzò il suo modo di vedere, ma non inventò la sua pittura.</p>\n<p>Un ultimo dettaglio da conoscitori: la superficie del laghetto veniva pulita da foglie morte e alghe prima che Monet si mettesse al lavoro. Quella natura che nei quadri sembra spontanea era in realtà preparata, regolata e mantenuta con un lavoro enorme.</p>\n\n<div class=\"notice\">«Il capolavoro più grande di Monet forse non è un singolo quadro: è questo sistema perfetto in cui il giardino produceva i quadri e i quadri trasformavano il giardino in un mito.»</div>", "sources": [["Pagina ufficiale del sito (Normandie Tourisme)", "https://it.normandie-tourisme.fr/siti-luoghi-di-visita/jardins-et-maison-de-claude-monet/"], ["Cronologia (claudemonetgiverny.fr)", "https://claudemonetgiverny.fr/en/decouvrir/timeline/"], ["Il giardino (giverny.org)", "https://giverny.org/gardens/fcm/visitgb.htm"], ["La cucina di Monet (Architectural Digest)", "https://www.architecturaldigest.com/story/forget-the-gardens-the-best-part-of-giverny-claude-monet-kitchen"], ["Il giardino a Giverny (Musée des impressionnismes)", "https://www.mdig.fr/en/discover-the-museum/explore-impressionism/themes/monet-s-garden-in-giverny/"]]}
       }
     ];
 
@@ -1154,6 +1184,16 @@
               ${day.program.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
             </ul>
             <div><span class="key">Priorità:</span> ${escapeHtml(day.priority)}</div>
+            ${day.story ? `
+              <details class="story">
+                <summary>${escapeHtml(day.story.title)}</summary>
+                ${day.story.html}
+                <div class="credits">
+                  <strong>Fonti</strong> (testo con assistenza AI, non verificato punto per punto):
+                  ${day.story.sources.map(([label, url]) => `<a href="${encodeURI(url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>`).join(" · ")}
+                </div>
+              </details>
+            ` : ""}
           </div>
         </article>
       `).join("") || '<div class="empty">Nessun giorno trovato.</div>';
