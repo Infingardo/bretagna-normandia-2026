@@ -93,6 +93,17 @@
       margin: 8px 0 0;
     }
 
+    .countdown {
+      margin: 10px 0 0;
+      font-size: 1.05rem;
+      font-weight: 650;
+      color: var(--primary-2);
+    }
+
+    .countdown:empty {
+      display: none;
+    }
+
     .toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -571,6 +582,7 @@
       <div>
         <h1>Bretagna + Normandia 2026</h1>
         <p class="subtitle">Dossier interattivo per 6 persone, 1-13 agosto 2026</p>
+        <p class="countdown" id="countdown"></p>
       </div>
       <div class="toolbar">
         <button class="btn" id="copyToday" type="button">Copia giorno selezionato</button>
@@ -1141,6 +1153,26 @@
       return dayOfMonth >= 1 && dayOfMonth <= 13 ? `day-${dayOfMonth}` : null;
     }
 
+    function renderCountdown(now = new Date()) {
+      const el = document.getElementById("countdown");
+      if (!el) return;
+      const msPerDay = 24 * 60 * 60 * 1000;
+      const midnight = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      const today = midnight(now);
+      const start = new Date(2026, 7, 1);
+      const end = new Date(2026, 7, 13);
+
+      if (today < start) {
+        const days = Math.round((start - today) / msPerDay);
+        el.textContent = days === 1 ? "Manca 1 giorno alla partenza (1 agosto 2026)" : `Mancano ${days} giorni alla partenza (1 agosto 2026)`;
+      } else if (today <= end) {
+        const dayNum = Math.round((today - start) / msPerDay) + 1;
+        el.textContent = `Siete in viaggio: giorno ${dayNum} di 13`;
+      } else {
+        el.textContent = "";
+      }
+    }
+
     function renderDayOptions() {
       daySelect.innerHTML = '<option value="all">Tutti i giorni</option>' + tripDays.map((day) =>
         `<option value="${day.id}">${day.dow} ${day.date} - ${escapeHtml(day.base)}</option>`
@@ -1423,6 +1455,7 @@
     renderDocuments();
     renderCredits();
     renderStoryIndex();
+    renderCountdown();
   </script>
 </body>
 </html>
