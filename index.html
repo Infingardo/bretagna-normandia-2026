@@ -618,7 +618,10 @@
             Cerca
             <input id="searchDays" type="search" placeholder="città, visita, hotel">
           </label>
-          <button class="btn" id="resetDays" type="button">Mostra tutto</button>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn primary" id="goToday" type="button">Oggi</button>
+            <button class="btn" id="resetDays" type="button">Mostra tutto</button>
+          </div>
         </div>
         <div class="timeline" id="dayList"></div>
       </div>
@@ -854,7 +857,7 @@
         intensity: "Medio-intenso",
         km: "100-150 km",
         hotel: "Ibis Budget Saint-Malo Centre",
-        program: ["Borgo presto, idealmente ore 8", "Abbazia verso ore 9", "Uscita verso le 11", "Scegliere: Dinan oppure Saint-Malo/Cancale"],
+        program: ["Borgo e mura presto, idealmente ore 8", "Partenza verso le 11", "Scegliere: Dinan oppure Saint-Malo/Cancale"],
         priority: "Scegliere, non sommare tutto",
         critical: false,
         story: {"title": "Saint-Malo: pirati con la licenza del re e una città rinata due volte", "note": "date e numeri principali verificati con ricerche mirate, luglio 2026; il resto è narrazione divulgativa", "html": "<p>Saint-Malo ha una specialità curiosa: per secoli ha allevato pirati con la licenza del re. Si chiamavano corsari, ed è una differenza che vale la pena capire prima di passeggiare sui suoi bastioni.</p>\n\n<h4>Pirati sì, ma con il timbro ufficiale</h4>\n<p>Un corsaro non è un pirata qualunque: ha una \"lettre de course\", un'autorizzazione reale a depredare le navi nemiche in tempo di guerra. Se catturato, in teoria va trattato da prigioniero di guerra e non impiccato come un fuorilegge (in pratica gli inglesi non sempre rispettavano questa distinzione, ma è il pensiero che conta). In cambio il corsaro versa una quota del bottino alla corona. Saint-Malo, isolata su un promontorio granitico e affacciata sulla Manica, ne fece quasi un'industria di famiglia.</p>\n\n<h4>Duguay-Trouin, quello che prese Rio de Janeiro</h4>\n<p>René Duguay-Trouin nasce a Saint-Malo nel 1673, sale per la prima volta su una nave corsara a quattordici anni e diventa capitano a diciotto — un curriculum che oggi farebbe rabbrividire qualunque ufficio del personale. La sua impresa più clamorosa è la presa di Rio de Janeiro nel 1711: undici giorni di battaglia, dodici navi e 6.000 uomini contro una difesa di sette vascelli, cinque forti e 14-15.000 uomini. Vince, e tiene il governatore in ostaggio per un riscatto. Nel corso della carriera cattura più di 300 navi nemiche.</p>\n\n<h4>Surcouf, il cugino che arriva un secolo dopo</h4>\n<p>Robert Surcouf nasce a Saint-Malo un secolo più tardi, nel 1773, discendente proprio di Duguay-Trouin per parte di madre — evidentemente in famiglia certe attitudini si tramandano. Diventa il più famoso corsaro dell'Oceano Indiano, e la sua impresa da manuale è la cattura del Kent, una potente nave della Compagnia inglese delle Indie Orientali. Da queste parti lo chiamano ancora \"il re dei corsari\".</p>\n\n<h4>La città che è rinata due volte</h4>\n<p>Ora il rovescio della medaglia. Il 6 agosto 1944 l'esercito americano bombarda Saint-Malo per liberarla dai tedeschi, e per dieci giorni di fila bombe e cannoneggiamenti navali si abbattono sulla città vecchia. Alla fine, l'80% degli edifici dentro le mura — circa 683 edifici, quasi 2.000 abitazioni — è distrutto. Quella che oggi sembra una città medievale intatta è in realtà una ricostruzione: gli abitanti la rifecero pietra su pietra fra il 1948 e il 1960, completando l'ultimo restauro (la cattedrale di Saint-Vincent) solo nel 1972.</p>\n\n<div class=\"notice\">«Quando cammini dentro le mura di Saint-Malo non stai camminando in una città medievale sopravvissuta alla guerra: stai camminando in una copia così fedele, ricostruita da chi l'aveva vista bruciare, che è quasi impossibile dire dove finisca la storia e cominci la sua replica.»</div>", "sources": [["I corsari di Saint-Malo (Saint-Malo Tourisme)", "https://www.saint-malo-tourisme.co.uk/explore-our-destination/in-the-footsteps/the-privateers-of-saint-malo/"], ["René Duguay-Trouin (Wikipedia)", "https://en.wikipedia.org/wiki/Ren%C3%A9_Duguay-Trouin"], ["Robert Surcouf (Napoleon & Empire)", "https://www.napoleon-empire.org/en/personalities/surcouf.php"], ["La ricostruzione post-bellica di Saint-Malo (France Today)", "https://francetoday.com/travel/the-reconstruction-of-saint-malo/"], ["Battaglia di Saint-Malo (Wikipedia)", "https://en.wikipedia.org/wiki/Battle_of_Saint-Malo"]]}
@@ -1360,6 +1363,11 @@
       searchDays.value = "";
       renderDays();
     });
+    document.getElementById("goToday").addEventListener("click", () => {
+      daySelect.value = currentTripDayId() || "day-1";
+      searchDays.value = "";
+      renderDays();
+    });
 
     searchFood.addEventListener("input", renderFood);
     document.getElementById("resetFood").addEventListener("click", () => {
@@ -1405,8 +1413,7 @@
     document.getElementById("statBases").textContent = String(hotels.length);
 
     renderDayOptions();
-    const todayId = currentTripDayId();
-    if (todayId) daySelect.value = todayId;
+    daySelect.value = currentTripDayId() || "day-1";
     renderDays();
     renderHotels();
     renderCostSummary();
